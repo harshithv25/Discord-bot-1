@@ -1,6 +1,6 @@
 module.exports = {
-  name: "Stop",
-  description: "Stops playing the current song",
+  name: "Pause",
+  description: "Pauses the current song",
   execute(message, args, Discord, serverQueue) {
     if (!message.member.voice.channel) {
       const embed = new Discord.MessageEmbed()
@@ -9,9 +9,12 @@ module.exports = {
       return message.channel.send(embed);
     }
     if (!serverQueue) {
-      return message.react("🛑");
+      const embed = new Discord.MessageEmbed().setColor("#E50000").setDescription("The queue cannot be empty");
+      return message.channel.send(embed);
     }
+    message.react("⏸️");
+    serverQueue.songs = [];
     serverQueue.connection.dispatcher.pause();
-    return message.react("🛑");
+    return;
   },
 };

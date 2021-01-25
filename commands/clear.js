@@ -1,5 +1,5 @@
 module.exports = {
-  name: "Clear",
+  name: "ClearMsgs",
   description: "Clears mesasges",
   async execute(message, args, Discord, wrong, right) {
     if (!args[0]) {
@@ -11,7 +11,7 @@ module.exports = {
       message.reply(embed);
       return;
     }
-    if (args[0] > 500) {
+    if (args[0] > 50) {
       const embed = new Discord.MessageEmbed().setColor("#00E503").setDescription("You cannot delete more than a 100 messages at a time");
       return message.reply(embed);
     }

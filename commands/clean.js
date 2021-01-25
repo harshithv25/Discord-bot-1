@@ -1,7 +1,7 @@
 module.exports = {
-  name: "Stop",
-  description: "Stops playing the current song",
-  execute(message, args, Discord, serverQueue) {
+  name: "Clear",
+  description: "Clears the queue",
+  execute(message, args, Discord, serverQueue, queue) {
     if (!message.member.voice.channel) {
       const embed = new Discord.MessageEmbed()
         .setColor("#E50000")
@@ -9,9 +9,10 @@ module.exports = {
       return message.channel.send(embed);
     }
     if (!serverQueue) {
-      return message.react("🛑");
+      return message.react("🆗");
     }
-    serverQueue.connection.dispatcher.pause();
-    return message.react("🛑");
+    serverQueue.songs = [];
+    serverQueue.connection.dispatcher.end();
+    return message.react("🆗");
   },
 };
